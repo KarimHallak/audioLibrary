@@ -18,11 +18,11 @@ exports.addAlbums = async (req, res) => {
 
   try {
     const albumModel = new model({
-      name: req.query.name,
-      description: req.query.description,
-      showNbTracks: req.query.showNbTracks,
+      name: req.body.name,
+      description: req.body.description,
+      showNbTracks: req.body.showNbTracks,
     });
-    console.log(req.query);
+    console.log(req.body);
 
     await albumModel.save();
     return res.status(200).json({ msg: "success" });
@@ -42,7 +42,7 @@ exports.deleteAlbums = async (req, res) => {
 
 exports.updateAlbums = async (req, res) => {
   try {
-    await model.findByIdAndUpdate(req.params.albumid, req.query);
+    await model.findByIdAndUpdate(req.params.albumid, req.body);
     return res.status(200).json({ msg: "success" });
   } catch (err) {
     return res.status(500).json({ msg: "failed" });

@@ -1,6 +1,6 @@
-const model = require("./collection.model");
-exports.listCollection = async (req, res) => {
-  console.log("listCollection");
+const model = require("./category.model");
+exports.listCategory = async (req, res) => {
+  console.log("listCategory");
 
   try {
     const data = await model.find();
@@ -13,14 +13,14 @@ exports.listCollection = async (req, res) => {
   }
 };
 
-exports.addCollection = async (req, res) => {
-  console.log("addCollection");
+exports.addCategory = async (req, res) => {
+  console.log("addcategory");
 
   try {
     const albumModel = new model({
-      name: req.query.name,
-      description: req.query.description,
-      showNbTracks: req.query.showNbTracks,
+      name: req.body.name,
+      description: req.body.description,
+      showNbTracks: req.body.showNbTracks,
     });
     console.log(req.query);
 
@@ -31,18 +31,18 @@ exports.addCollection = async (req, res) => {
   }
 };
 
-exports.deleteCollection = async (req, res) => {
+exports.deleteCategory = async (req, res) => {
   try {
-    await model.findByIdAndRemove(req.params.albumid);
+    await model.findByIdAndRemove(req.params.category);
     return res.status(200).json({ msg: "success" });
   } catch (err) {
     return res.status(500).json({ msg: "failed" });
   }
 };
 
-exports.updateCollection = async (req, res) => {
+exports.updateCategory = async (req, res) => {
   try {
-    await model.findByIdAndUpdate(req.params.albumid, req.query);
+    await model.findByIdAndUpdate(req.params.category, req.body);
     return res.status(200).json({ msg: "success" });
   } catch (err) {
     return res.status(500).json({ msg: "failed" });
